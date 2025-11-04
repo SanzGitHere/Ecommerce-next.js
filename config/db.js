@@ -7,21 +7,19 @@ if (!cached) {
 }
 
 async function connectDB() {
-  if (cached.conn) {
-    return cached.conn;
-  }
+  if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
     const opts = { bufferCommands: false };
 
     cached.promise = mongoose
-      .connect(`${process.env.MONGODB_URI}/quickcart`, opts)
+      .connect(`${process.env.MONGODB_URI}/ecommerce-nextjs`, opts)
       .then((mongoose) => {
-        console.log("✅ MongoDB connected");
+        console.log("✅ MongoDB connected successfully");
         return mongoose;
       })
       .catch((err) => {
-        console.error("❌ MongoDB connection failed:", err);
+        console.error("❌ MongoDB connection failed:", err.message);
         throw err;
       });
   }
